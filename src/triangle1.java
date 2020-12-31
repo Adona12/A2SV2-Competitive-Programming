@@ -14,4 +14,5 @@ public class triangle1 {
         }
         return answer;
     }
+
 }
