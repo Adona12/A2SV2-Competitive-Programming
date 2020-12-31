@@ -6,9 +6,17 @@ public class Triangle2 {
         int j=1;
         int count=4;
         for(int i=5;i>0;i--){
-            System.out.println(" ".repeat(count)+"*".repeat(j));
+            System.out.println(duplicate(count," ")+duplicate(j,"*"));
             j+=2;
             count--;
         }
     }
+    public static String duplicate(int count,String s){
+        String answer="";
+       for(int i=0;i<count;i++){
+           answer+=s;
+       }
+       return answer;
+    }
+
 }
