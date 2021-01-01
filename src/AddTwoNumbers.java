@@ -36,9 +36,6 @@ public class AddTwoNumbers {
                 l1=l1.next;
                 l2=l2.next;
             }
-
-
-
             if(count==0){
 
                 total=new ListNode(summation);
@@ -49,24 +46,13 @@ public class AddTwoNumbers {
 
                 total.next=new ListNode(summation);
                 total=total.next;
-
-
             }
-
         }
-
         if(carry!=0){
             total.next=new ListNode(1);
             total=total.next;
         }
         return head;
     }
-}
-class ListNode {
-    int val;
-    ListNode next;
-    ListNode() {}
-    ListNode(int val) { this.val = val; }
-    ListNode(int val, ListNode next) { this.val = val; this.next = next; }
 }
 
