@@ -1,6 +1,8 @@
+import java.util.jar.JarOutputStream;
+
 public class SumNegaiveOnly {
     public static void main(String[] args) {
-        System.out.println(sumNegaiveOnly("-1","8"));
+        System.out.println(sumNegaiveOnly("9","-8001"));
     }
 public static String sumNegaiveOnly(String firstNum,String secondNum){
     int length=firstNum.length()>secondNum.length()?firstNum.length()-1:secondNum.length()-1;
@@ -8,11 +10,11 @@ public static String sumNegaiveOnly(String firstNum,String secondNum){
         return "-"+sumPositiveOnly(firstNum,secondNum);
     }
     else if(firstNum.charAt(0)=='-'&& secondNum.charAt(0)!='-'){
-        return sumNegative(firstNum.substring(1),secondNum);
+        return sumNegative(firstNum.substring(1),secondNum,true);
     }
     else if(firstNum.charAt(0)!='-'&& secondNum.charAt(0)=='-'){
 
-       return  sumNegative(firstNum,secondNum.substring(1));
+       return  sumNegative(firstNum,secondNum.substring(1),false);
     }
     else if(!(firstNum.charAt(0)=='-') && !(secondNum.charAt(0)=='-')){
      return sumPositiveOnly(firstNum,secondNum);
@@ -21,58 +23,86 @@ public static String sumNegaiveOnly(String firstNum,String secondNum){
 return "";
 
 }
-public static String sumNegative(String firstNum,String secondNum) {
+public static String sumNegative(String firstNum,String secondNum,boolean first) {
     String answer = "";
     int larger = 0;
-    String higher;
-    String lower;
+    String higher="";
+
+    String lower="";
     if (firstNum.length() == secondNum.length()) {
+
         for (int i = 0; i < firstNum.length(); i++) {
-            if (Integer.parseInt(String.valueOf(firstNum.charAt(i))) > Integer.parseInt(String.valueOf(firstNum.charAt(i)))) {
+            if (Integer.parseInt(String.valueOf(firstNum.charAt(i))) > Integer.parseInt(String.valueOf(secondNum.charAt(i)))) {
                 larger = 1;
-            } else if (Integer.parseInt(String.valueOf(firstNum.charAt(i))) > Integer.parseInt(String.valueOf(firstNum.charAt(i)))) {
+
+                break;
+            } else if (Integer.parseInt(String.valueOf(firstNum.charAt(i))) < Integer.parseInt(String.valueOf(secondNum.charAt(i)))) {
                 larger = 2;
+
+              break;
             }
         }
         if (larger == 0) {
             return "0";
         }
-    } else {
+    }else{
+        larger=firstNum.length()>secondNum.length()?1:2;
+
+    }
         higher = larger == 1 ? firstNum : secondNum;
         lower = larger != 1 ? firstNum : secondNum;
         if (higher.length() != lower.length()) {
-            for (int i = 0; i < higher.length() - lower.length(); i++) {
-               lower="0"+lower;
+
+            int index=higher.length()-lower.length();
+            for (int k = 0; k < index; k++) {
+                lower = "0" + lower;
             }
         }
 
-        for (int i = 0; i < higher.length(); i++) {
+//        System.out.println(higher);
+//        System.out.println(lower);
+        for (int i = higher.length()-1; i >=0; i--) {
+            System.out.println(higher);
+            System.out.println(lower);
             int x=Integer.parseInt(String.valueOf(higher.charAt(i)));
             int y=Integer.parseInt(String.valueOf(lower.charAt(i)));
+            System.out.println("x index "+i);
             if (x >= y) {
-                answer+=(x-y);
+                answer=(x-y)+answer;
+             //   System.out.println(x);
             }
+
             else{
+
                int back=i-1;
                 while(true){
                     if(Integer.parseInt(String.valueOf(higher.charAt(back)))>0){
-                        higher.replace(higher.substring(0,back+1),higher.substring(0,back)+(Integer.parseInt(String.valueOf(lower.charAt(i)))-1));
+
+                        if(back!=0){
+                            higher=higher.substring(0,back)+(Integer.parseInt(String.valueOf(higher.charAt(back)))-1)+higher.substring(back+1);
+                        }
+
+                        else {
+
+                            higher = (Integer.parseInt(String.valueOf(higher.charAt(back))) - 1) + higher.substring(back + 1);
+                        }
                         break;
                     }
                     else{
                         int previousNum=Integer.parseInt("1"+String.valueOf(higher.charAt(back)))-1;
-                        higher.replace(higher.substring(0,back+1),higher.substring(0,back)+previousNum);
+                        higher=higher.substring(0,back)+previousNum+higher.substring(back+1);
                         back--;
                     }
                 }
-                x=Integer.parseInt(String.valueOf(higher.charAt(i)));
+                x=Integer.parseInt("1"+String.valueOf(higher.charAt(i)));
                 y=Integer.parseInt(String.valueOf(lower.charAt(i)));
-                answer+=(x-y);
+                answer=answer+(x-y);
+
             }
         }
 
-    }
-    return answer;
+
+    return first&&larger==1|| !first &&larger==2?'-'+answer:answer;
 }
 
     public static String sumPositiveOnly(String firstNumber,String secondNumber){
@@ -114,7 +144,6 @@ public static String sumNegative(String firstNum,String secondNum) {
             count1--;
             count2--;
         }
-        //  System.out.println(answer);
         return answer;
 
     }
