@@ -1,4 +1,78 @@
+package WeekOne;
+
 public class Multiplication {
+
+    public static void main(String[] args) {
+        int[ ] j={1,3,2,6,1,2};
+        //divisibleSumPairs(7,3,j);
+       // System.out.println(3%3);
+        //String something="";
+      //  CharSequence c="abc".repeat(1000000000);
+   //     System.out.println(10/3);
+        System.out.println( repeatedString("abaa",12));
+   //     System.out.println(c);
+      //  something.length();
+    }
+    static long repeatedString(String s, long n) {
+        long count = 0;
+        int frequency = 0;
+        int inEach = 0;
+        if (s.equals("a")) {
+            System.out.println("here");
+            return n;
+        }
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == 'a') {
+                inEach++;
+            }
+        }
+        System.out.println(inEach);
+
+        while (count < n) {
+            count += s.length();
+        }
+        System.out.println("count " + count);
+        frequency = ((int) count / s.length()) * inEach;
+        System.out.println("frequency " + frequency);
+        if (count != n) {
+            if (n % s.length() != 0) {
+                s=s.substring((int) (count - n)-1 );
+                System.out.println("hrr");
+            } else
+                s = s.substring(0, (int) (count - n) - 1);
+        }
+
+
+        System.out.println("new string "+s);
+        // System.out.println(count);
+        if(count!=n) {
+            for (int i = 0; i < s.length(); i++) {
+                if (s.charAt(i) == 'a') {
+                    frequency--;
+                }
+            }
+        }
+
+        return frequency;
+    }
+    static int divisibleSumPairs(int n, int k, int[] ar) {
+        int pairs = 0;
+        System.out.println(k);
+        for (int i = 0; i < ar.length; i++) {
+            for (int j = 0; j < ar.length; j++) {
+                System.out.print(i +" "+ ar[i]+"  ");
+                System.out.print(j+" "+ ar[j]+"  ");
+             //   System.out.print(ar[i] + ar[j] )% k );
+                System.out.println();
+                if (i < j && ar[i] + ar[j] % k == 0) {
+
+                    pairs++;
+                }
+                System.out.println(pairs);
+            }
+        }
+        return pairs;
+    }
     public static void multiplication(String num1, String num2) {
         String previous = "";
         for (int i = num1.length() - 1; i >= 0; i--) {

@@ -1,3 +1,5 @@
+package WeekOne;
+
 public class CountingValleys {
     public  int countingValleys(String path,int steps) {
         int count = 0;

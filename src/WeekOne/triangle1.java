@@ -1,3 +1,5 @@
+package WeekOne;
+
 public class triangle1 {
     public static void main(String[] args) {
         showTriangle(5);

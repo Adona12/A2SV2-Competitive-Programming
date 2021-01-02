@@ -1,3 +1,5 @@
+package WeekOne;
+
 public class SumPositiveOnly {
     public static void main(String[] args) {
 

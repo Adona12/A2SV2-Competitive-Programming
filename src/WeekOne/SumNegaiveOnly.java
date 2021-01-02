@@ -1,3 +1,5 @@
+package WeekOne;
+
 import java.util.jar.JarOutputStream;
 
 public class SumNegaiveOnly {
