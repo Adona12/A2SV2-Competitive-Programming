@@ -9,9 +9,23 @@ public class Multiplication {
         //String something="";
       //  CharSequence c="abc".repeat(1000000000);
    //     System.out.println(10/3);
-        System.out.println( repeatedString("abaa",12));
+        System.out.println( repeatedString("abada",103));
    //     System.out.println(c);
       //  something.length();
+    }
+
+    static long gameOfTwoStacks(int x,int[] a,int[] b){
+        int counterA =0;
+        int counterB=0;
+        int counter=0;
+        while(counter<x){
+            if(counterA<a.length && counterB<b.length){
+
+            }
+
+        }
+
+        return 1;
     }
     static long repeatedString(String s, long n) {
         long count = 0;
@@ -36,7 +50,7 @@ public class Multiplication {
         System.out.println("frequency " + frequency);
         if (count != n) {
             if (n % s.length() != 0) {
-                s=s.substring((int) (count - n)-1 );
+                s=s.substring(s.length()-(int) (count - n));
                 System.out.println("hrr");
             } else
                 s = s.substring(0, (int) (count - n) - 1);

@@ -1,8 +1,17 @@
 package WeekOne;
 
 public class AddTwoNumbers {
+    public static void main(String[] args) {
+        ListNode l1= new ListNode(2,new ListNode(8,new ListNode(5)));
+        ListNode l2= new ListNode(5,new ListNode(4,new ListNode(4)));
+        ListNode l = addTwoNumbers(l1,l2);
+        while (l != null){
+            System.out.println(l.val);
+            l=l.next;
+        }
+    }
 
-    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+    public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         ListNode total=null;
         ListNode head=null;
 
