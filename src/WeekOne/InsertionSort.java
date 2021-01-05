@@ -1,6 +1,6 @@
 package WeekOne;
 
-public class InertionSort {
+public class InsertionSort {
     public static void main(String[] args) {
         int[] j={-2,2,1,-3,0,4,5,6,2};
         int[] k={1,12,3,4,2,0,1};
