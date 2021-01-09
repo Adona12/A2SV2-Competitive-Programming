@@ -9,9 +9,6 @@ public class DeleteInLinkedList {
         System.out.println(deleteLinkedList(linkedList,88));
     }
 
-
-;
-
     public static boolean deleteLinkedList(Node linkedList, int data) {
         Node head = linkedList;
         if (linkedList.val == data) {
