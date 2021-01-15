@@ -1,8 +1,10 @@
 package contest;
 
 import java.util.List;
+import java.util.Stack;
 
 public class BonAppetite {
+
     static void bonAppetit(List<Integer> bill, int k, int b) {
         int theWhole=0;
         int excluded=0;
