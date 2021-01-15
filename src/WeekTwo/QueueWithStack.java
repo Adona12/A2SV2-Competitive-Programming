@@ -6,6 +6,7 @@ public class QueueWithStack {
 
     public static void main(String[] args) {
 
+    }
 }
 class MyQueue {
 
