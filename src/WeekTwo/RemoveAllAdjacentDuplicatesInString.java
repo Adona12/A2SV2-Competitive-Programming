@@ -3,6 +3,7 @@ package WeekTwo;
 import java.util.Stack;
 
 public class RemoveAllAdjacentDuplicatesInString {
+
     public String removeDuplicates(String S) {
         Stack<Character> chars=new Stack<Character>();
         char temp=' ';
