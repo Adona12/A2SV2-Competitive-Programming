@@ -24,7 +24,7 @@ public class RemoveAllAdjacentDuplicatesInString {
         }
         S="";
         while(!chars.isEmpty()){
-            S=Character.toString(chars.pop())+S;
+            S= chars.pop() +S;
         }
         return S;
     }
