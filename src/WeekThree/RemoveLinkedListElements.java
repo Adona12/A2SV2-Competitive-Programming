@@ -7,12 +7,12 @@ public class RemoveLinkedListElements {
     public static void main(String[] args) {
     // ListNode linkedList = new ListNode(1, new ListNode(2, new ListNode(6, new ListNode(3, new ListNode(4,new ListNode(5,new ListNode(6)))))));
       //  ListNode linkedList = new ListNode(6);
-         ListNode linkedList = new ListNode(6, new ListNode(6, new ListNode(6, new ListNode(6))));
-            ListNode h=    removeElements(linkedList,6);
-        while (h!=null){
-            System.out.println(h.val);
-            h=h.next;
-        }
+       //  ListNode linkedList = new ListNode(6, new ListNode(6, new ListNode(6, new ListNode(6))));
+//            ListNode h=    removeElements(linkedList,6);
+//        while (h!=null){
+//            System.out.println(h.val);
+//            h=h.next;
+//        }
     }
     public static ListNode removeElements(ListNode head,int val){
 

@@ -22,7 +22,7 @@ public class RangeInBST {
             }
 
             sum(root.right,low,high);
-            
+
         }
 
     }
