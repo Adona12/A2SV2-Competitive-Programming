@@ -9,6 +9,7 @@ public class HeapSort {
         Scanner scanner=new Scanner(System.in);
         int x= scanner.nextInt();
         Heap heap=new Heap(x);
+
         scanner.nextLine();
         String y=scanner.nextLine();
         String[] z=y.split(" ");
