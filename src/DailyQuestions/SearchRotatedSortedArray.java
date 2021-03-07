@@ -1,5 +1,9 @@
 package DailyQuestions;
 
+import java.util.Comparator;
+import java.util.PriorityQueue;
+import java.util.Stack;
+
 public class SearchRotatedSortedArray {
     public boolean search(int[] nums, int target) {
         int index = 0;
@@ -15,6 +19,8 @@ public class SearchRotatedSortedArray {
         return  binarySearch(nums,index+1,nums.length-1,target);
     }
     public boolean binarySearch(int[] nums,int start,int end,int target){
+        Stack<Integer> stack = new Stack<>();
+
         int mid = start + (end - start) / 2;
         if(start>end){
             return false;
