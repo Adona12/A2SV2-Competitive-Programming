@@ -1,0 +1,26 @@
+class FindKClosestElements {
+    public List<Integer> findClosestElements(int[] arr, int k, int x) {
+        
+        ArrayList<Integer> result = new ArrayList<>();    
+        int leftPointer = 0;
+        int rightPointer =arr.length - 1;
+        while((rightPointer - leftPointer) + 1 > k){
+            int rightDifference =Math.abs( arr[rightPointer] - x);
+            int leftDifference =Math.abs( arr[leftPointer] - x);
+            if( rightDifference == leftDifference || rightDifference > leftDifference ){
+                rightPointer--;
+            }
+            else{
+                leftPointer++;
+            }
+      
+        }
+        for(int i = leftPointer; i <= rightPointer; i++){
+            result.add(arr[i]);
+        }
+     
+        return result;
+  
+
+    }
+}
