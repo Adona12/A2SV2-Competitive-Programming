@@ -1,0 +1,21 @@
+class Solution:
+    def minimumRecolors(self, seats: str, k: int) -> int:
+        min_oper = 0
+        oper = float('inf')
+        n = len(seats)
+        left_ptr = right_ptr = 0
+        while right_ptr < n:
+            if right_ptr - left_ptr + 1 < k:
+                if seats[right_ptr] == 'B':
+                    min_oper += 1
+                right_ptr += 1
+
+            if right_ptr - left_ptr + 1 == k:
+                oper = min(oper, min_oper)
+                if seats[left_ptr] == 'B':
+                    min_oper -= 1
+                
+                left_ptr += 1
+              
+
+        return oper
