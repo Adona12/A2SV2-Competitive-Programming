@@ -1,0 +1,46 @@
+class Solution {
+    public int[][] matrixBlockSum(int[][] mat, int k) {
+       for(int i = 0; i < mat.length; i++){
+           for(int j = 1; j < mat[i].length; j++){
+               mat[i][j] = mat[i][j] + mat[i][j - 1];    
+           }
+       } 
+       for(int i = 1; i < mat.length; i++){
+           for(int j = 0; j < mat[i].length; j++){
+               mat[i][j] = mat[i - 1][j] + mat[i][j];    
+           }
+       }
+       int[][] result = new int[mat.length][mat[0].length];
+      for(int i = 0; i < mat.length; i++){
+           for(int j = 0; j < mat[i].length; j++){
+               int upperRow = i + k;
+               int lowerRow = i - k;
+               int upperColumn = j + k;
+               int lowerColumn = j - k;
+
+               if(upperRow >= mat.length){
+                   upperRow = mat.length - 1;
+               }
+               if(upperColumn >= mat[i].length){
+                   upperColumn = mat[i].length - 1;
+               }
+               int Area = mat[upperRow][upperColumn];
+               
+               if(lowerRow - 1 >= 0){
+                   Area -= mat[lowerRow - 1][upperColumn];
+               }
+               if(lowerColumn - 1 >= 0){
+                   Area -= mat[upperRow][lowerColumn - 1];
+               }
+               
+               if(lowerRow - 1 >= 0 && lowerColumn - 1 >= 0){
+                   Area += mat[lowerRow - 1][lowerColumn - 1];
+               }
+               result[i][j] = Area;
+           }
+       }
+        return result;
+       
+     
+    }
+}
