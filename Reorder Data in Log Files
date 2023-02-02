@@ -1,0 +1,31 @@
+class Solution {
+    public String[] reorderLogFiles(String[] logs) {
+        ArrayList<String> letters = new ArrayList<>();
+        ArrayList<String> digits = new ArrayList<>();
+        String[] result = new String[logs.length];
+        for(String log : logs){
+            String[] l = log.split(" ");
+            if(l[1].charAt(0) >= '0' && l[1].charAt(0) <= '9'){
+                digits.add(log);
+            }else
+                letters.add(log);
+        }
+        Collections.sort(letters, new Comparator<>(){
+            public int compare(String a, String b){
+                String[] a1 = a.split(" ",2);
+                String[] b1 = b.split(" ",2);
+                int value = a1[1].compareTo(b1[1]);
+                if(value == 0)
+                    return a1[0].compareTo(b1[0]);
+                return value;
+
+            }
+        });
+        int i = 0;
+        for(String log : letters)
+            result[i++] = log;
+        for(String log : digits)
+            result[i++] = log;
+        return result;
+    }
+}
