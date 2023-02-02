@@ -1,0 +1,17 @@
+class Solution {
+    public long numberOfWays(String s) {
+      long zeroes = 0, ones = 0, zeroOnes = 0, oneZeroes = 0, total = 0;
+      for(char c : s.toCharArray()){
+          if(c == '0'){
+              oneZeroes += ones;
+              total += zeroOnes;
+              zeroes++;
+          }else{
+              zeroOnes += zeroes;
+              total += oneZeroes;
+              ones++;
+          }
+      }
+      return total;
+    }
+}
