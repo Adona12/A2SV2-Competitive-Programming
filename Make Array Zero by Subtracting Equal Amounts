@@ -1,0 +1,33 @@
+class Solution {
+    public int minimumOperations(int[] nums) {
+        int min = Integer.MAX_VALUE;
+        boolean zeroes = true;
+        int count = 0;
+        
+        for(int num : nums){
+            if(num != 0){
+                min = Math.min(min,num);
+                zeroes = false;
+            }
+        }
+        if(zeroes)
+            return 0;
+        
+        while(!zeroes){
+            int x = min;
+            zeroes = true;
+            min = Integer.MAX_VALUE;
+            for(int i = 0; i < nums.length; i++){
+                nums[i] = Math.max(0, nums[i]- x);
+                if(nums[i] != 0){
+                    zeroes = false;
+                    min = Math.min(nums[i],min);
+                }
+            }
+            count++;
+            
+        }
+        
+        return count;
+    }
+}
