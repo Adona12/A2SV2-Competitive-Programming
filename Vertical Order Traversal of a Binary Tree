@@ -1,0 +1,74 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public List<List<Integer>> verticalTraversal(TreeNode root) {
+        List<List<Integer>> result = new ArrayList<>();
+        HashMap<Integer,ArrayList<Integer>> map =new HashMap<>();
+        ArrayDeque<Node> queue = new ArrayDeque<>();
+        int left = 0;
+        int right = 0;
+        
+        queue.offer(new Node(root,0));
+        while(queue.size() > 0){
+            List<Node> list = new ArrayList<>();
+            int size = queue.size();
+            for(int i = 0; i < size; i++){
+                Node element = queue.pop();
+                list.add(element);
+                if(element.element.left != null)
+                    queue.offer(new Node(element.element.left, element.column - 1));
+                if(element.element.right != null)
+                    queue.add(new Node(element.element.right, element.column + 1));
+            }
+                Collections.sort(list,new Comparator<Node>(){
+                   public int compare(Node a, Node b){
+                       if(a.column < b.column)
+                           return -1;
+                       else if(b.column < a.column)
+                           return 1;
+                       return a.element.val - b.element.val;
+                   } 
+                });
+                
+                for(int i = 0; i < list.size(); i++){
+                    ArrayList<Integer> temp= map.getOrDefault(list.get(i).column,new ArrayList<>());
+                    temp.add(list.get(i).element.val);
+                    map.put(list.get(i).column,temp);
+                    left = Math.min(left,list.get(i).column);
+                     right = Math.max(right,list.get(i).column);
+                }
+                
+            }
+       for(int i = left; i <= right;i++){
+           if(map.containsKey(i)){
+            result.add(map.get(left));
+            left++;
+           }
+        }
+        
+        return result;
+    }
+
+}
+
+class Node{
+    TreeNode element;
+    int column;
+    Node(TreeNode element, int column){
+        this.element = element;
+        this.column = column;
+    }
+}
