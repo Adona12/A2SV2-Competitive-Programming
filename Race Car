@@ -1,0 +1,35 @@
+class Solution {
+    public int racecar(int target) {
+        ArrayDeque<int[]> queue = new ArrayDeque<>();
+        HashSet<ArrayList<Integer>> set = new HashSet<>();
+        queue.offer(new int[]{0,1,0});
+        while(queue.size() > 0){
+            int[] current = queue.poll();
+            int[] currentA = new int[]{current[0] + current[1], current[1] * 2, current[2] + 1};
+          
+            int[] currentR = new int[]{current[0], current[1] >= 0?-1:1, current[2] + 1};
+            if(currentA[0] == target)
+                return currentA[2];
+            if(currentR[0] == target)
+                return currentR[2];
+            ArrayList<Integer> listA = new ArrayList<>();
+            listA.add(currentA[0]);
+            listA.add(currentA[1]);
+            ArrayList<Integer> listR = new ArrayList<>();
+            listR.add(currentR[0]);
+            listR.add(currentR[1]);
+            if(currentA[0] >= 0 && !set.contains(listA)){
+                set.add(listA);
+                queue.offer(currentA);
+            }
+            if(currentR[0] >= 0 && !set.contains(listR)){
+                set.add(listR);
+                queue.offer(currentR);
+            }
+            
+
+
+        }
+        return 0;
+    }
+}
