@@ -1,0 +1,48 @@
+class Solution {
+    public int findKthLargest(int[] nums, int k) {
+        int max = 0;
+        ArrayList<Integer> positive = new ArrayList<>();
+        ArrayList<Integer> negative = new ArrayList<>();
+        for(int num : nums){
+            max = Math.max(max,Math.abs(num));
+            if(num >= 0)
+                positive.add(num);
+            else
+                negative.add(num);
+        }
+        boolean pos = true;
+        int[] freq = new int[max + 1];
+        if(k <= positive.size() ){
+            for(int num : positive)
+                freq[num]++;
+            
+            
+        }else{
+            pos = false; 
+            k -=  positive.size();
+            for(int num : negative)
+                freq[num * -1]++;
+        }
+        if(pos){
+            int count = k;
+            for(int i = max; i >= 0; i--){
+                if(freq[i] > 0){
+                    count -= freq[i];
+                }
+                if(count <= 0)
+                    return i;
+            }
+        }
+        for(int i = 0; i <= max; i++){
+            if(freq[i] > 0){
+                k -= freq[i];
+            }
+            if(k <= 0)
+                return i * -1;
+        }
+        return 0;
+
+        
+
+    }
+}
