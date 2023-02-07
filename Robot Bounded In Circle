@@ -1,0 +1,44 @@
+class Solution {
+    public boolean isRobotBounded(String instructions) {
+        String dir = "N";
+        int x = 0, y = 0;
+
+        for(char c : instructions.toCharArray()){
+            if(dir == "N"){
+                if(c == 'G')
+                    y++;
+                else if(c == 'L')
+                    dir = "E";
+                else 
+                    dir = "W";
+            }else if(dir == "E"){
+                if(c == 'G')
+                    x++;
+                else if(c == 'L')
+                    dir = "S";
+                else 
+                    dir = "N";
+            }else if(dir == "W"){
+                if(c == 'G')
+                    x--;
+                else if(c == 'L')
+                    dir = "N";
+                else 
+                    dir = "S"; 
+            }else{
+                if(c == 'G')
+                    y--;
+                else if(c == 'L')
+                    dir = "W";
+                else 
+                    dir = "E"; 
+            }
+        }
+        if(x == 0 && y == 0)
+            return true;
+        if(dir == "N")
+            return false;
+        return true;
+        
+    }
+}
