@@ -1,0 +1,78 @@
+class Solution {
+    public List<String> fullJustify(String[] words, int maxWidth) {
+        ArrayList<String> result = new ArrayList<>();
+        ArrayList<String> current = new ArrayList<>();
+        int len = 0;
+        for(int i = 0; i < words.length; i++){
+           int check = current.size() > 0 ? 1 + len + words[i].length(): len + words[i].length();
+            if(check <= maxWidth){
+                
+                  if(current.size() != 0)
+                    len++;
+                current.add(words[i]);
+                len += words[i].length();
+              
+
+            }else{
+                 calculateSpace(result,current,false,len - (current.size() - 1),maxWidth);
+                 current.clear();
+                 current.add(words[i]);
+                 len = words[i].length();
+            }
+            
+            if(i == words.length - 1){
+                calculateSpace(result,current,true,len - (current.size() - 1),maxWidth);
+            }
+        }
+        return result;
+        
+    }
+    public void calculateSpace(ArrayList<String> result, ArrayList<String> current, boolean last, int len, int width){
+         
+        StringBuilder sentence = new StringBuilder();
+
+        if(current.size() != 1 && !last){
+            
+            int space = (width - len)/( current.size() - 1);
+            int rem = (width - len) % (current.size() - 1);
+            for(int i = 0; i < current.size(); i++){
+                sentence.append(current.get(i));
+                if(i != current.size() - 1){
+                    for(int j = 0; j < space;j++)
+                        sentence.append(" ");
+                }
+                if(rem > 0){
+                    sentence.append(" ");
+                    rem--;
+                }
+            
+            }
+           
+            result.add(sentence.toString());
+            return;
+        }
+        
+        int rem = width - len;
+        if(last && current.size() > 1){
+            for(int i = 0; i < current.size(); i++){
+                sentence.append(current.get(i));
+                if(rem > 0 && current.size() - 1 != i){
+                    sentence.append(" ");
+                    rem--;
+                }
+            
+            }
+        }else{
+            sentence.append(current.get(0));
+          //  System.out.println("here");
+        }
+      //  System.out.println(rem);
+        for(int j = 0; j < rem;j++)
+                sentence.append(" ");
+    
+
+       result.add(sentence.toString());
+        
+
+    }
+}
