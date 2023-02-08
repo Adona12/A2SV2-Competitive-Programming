@@ -1,0 +1,44 @@
+class Solution {
+    public int numBusesToDestination(int[][] routes, int source, int target) {
+        HashSet<Integer> visitedBus = new HashSet<>();
+        HashSet<Integer> visitedRoute = new HashSet<>();
+        ArrayDeque<Integer> queue = new ArrayDeque<>();
+        HashMap<Integer,ArrayList<Integer>> map = new HashMap<>();
+
+        for(int i = 0; i < routes.length; i++){
+            for(int j = 0; j < routes[i].length; j++){
+                int[] route = routes[i];
+                ArrayList<Integer> list = map.getOrDefault(route[j], new ArrayList<>());
+                list.add(i);
+                map.put(route[j],list);
+            }
+        }
+        queue.add(source);
+        visitedRoute.add(source);
+        int level = 0;
+        while(queue.size() > 0){
+            int size = queue.size();
+            for(int count = 0; count < size; count++){
+                int current = queue.poll();
+                if(current == target)
+                    return level;
+                ArrayList<Integer> busList = map.getOrDefault(current, new ArrayList<>());
+                for(int num : busList){
+                    if(visitedBus.contains(num))
+                        continue;
+                        visitedBus.add(num);
+                        for(int j = 0; j < routes[num].length; j++){
+                            int[] route = routes[num];
+                            if(!visitedRoute.contains(route[j])){
+                                queue.offer(route[j]);
+                                    visitedRoute.add(route[j]);          
+                            }
+                        }
+               }
+            }
+            level++;
+        }
+        return -1;
+
+    }
+}
