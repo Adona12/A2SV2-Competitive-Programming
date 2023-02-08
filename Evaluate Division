@@ -1,0 +1,94 @@
+class Solution {
+    public double[] calcEquation(List<List<String>> equations, double[] values, List<List<String>> queries) {
+        HashMap<String,ArrayList<Value>> map = new HashMap<>();
+        HashMap<String,Double> visited = new HashMap<>();
+        HashSet<String> tempVisited = new HashSet<>();
+        for(int i = 0; i < equations.size(); i++){
+            String numer = equations.get(i).get(0);
+            String denom = equations.get(i).get(1);
+            Value num_denom = new Value(denom,values[i]);
+            Value denom_num = new Value(numer,1/values[i]);
+            if(map.containsKey(numer))
+                map.get(numer).add(num_denom);
+            else{
+                ArrayList<Value> list = new ArrayList<>();
+                list.add(num_denom);
+                map.put(numer,list);
+            }
+            if(map.containsKey(denom))
+                map.get(denom).add(denom_num);
+            else{
+                ArrayList<Value> list = new ArrayList<>();
+                list.add(denom_num);
+                map.put(denom,list);
+            }
+            
+        }
+        double[] result = new double[queries.size()];
+        for(int i = 0; i < queries.size(); i++){
+            String numer = queries.get(i).get(0);
+            String denom = queries.get(i).get(1);
+            if(map.containsKey(numer) && numer.equals(denom))
+                result[i] = 1;
+            else{
+                result[i] = helper(numer, denom, map,visited,tempVisited);
+            
+            }
+        }
+        return result;
+    }
+    
+    public double helper(String numer, String denom, HashMap <String,ArrayList <Value>> map, HashMap<String,Double> visited, HashSet<String> tempVisited){
+       if(!map.containsKey(numer) || tempVisited.contains(numer))
+            return -1; 
+       String div =  numer+" "+denom;
+       if(visited.containsKey(div)){
+            return visited.get(div);
+       }
+       double result = -1; 
+       tempVisited.add(numer);
+       ArrayList<Value> temp = map.get(numer);
+       for(int i = 0; i < temp.size(); i++){
+           if(temp.get(i).denom.equals(denom)){
+               result =  temp.get(i).value;
+               break;
+           }
+           result = helper(temp.get(i).denom, denom, map, visited, tempVisited);
+           if(result != -1){ 
+               result *= temp.get(i).value;
+                break;
+           }
+       }
+        visited.put(div,result);
+        tempVisited.remove(numer);
+        return result;
+        
+    
+        
+        
+    }
+}
+
+// a = [2, b]
+
+
+
+// b = [[3, c],[1/2, a]]
+
+   
+// c = [[1/3, b],[4,d]]
+
+// a = 2b
+// b = 3c;
+ //c = 4d
+// a = 6c
+
+// bc /cd
+class Value{
+    String denom;
+    Double value;
+    Value(String denom,Double value){
+        this.denom = denom;
+        this.value = value;
+    }
+}
