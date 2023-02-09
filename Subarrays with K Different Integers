@@ -1,0 +1,31 @@
+class Solution {
+    public int subarraysWithKDistinct(int[] nums, int k) {
+        return countSubArrays(nums, k) - countSubArrays(nums, k - 1);
+    }
+    public int countSubArrays(int[] nums, int k){
+        HashMap<Integer,Integer> map = new HashMap<>();
+        int left = 0, unique = 0, result = 0;
+        for(int right = 0; right < nums.length; right++){
+            map.put(nums[right],map.getOrDefault(nums[right],0) + 1);
+            if(map.get(nums[right]) == 1)
+                unique++;
+            while(unique > k && left <= right){
+              
+                int diff = right - left;
+                result += diff;
+                map.put(nums[left],map.get(nums[left]) - 1);
+                if(map.get(nums[left]) == 0){
+                    map.remove(nums[left]);
+                    unique--;
+                }
+                left++;
+            }
+
+        }
+        while(left < nums.length){
+            result += nums.length - left;
+            left++;
+        }
+        return result;
+    }
+}
