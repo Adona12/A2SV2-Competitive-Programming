@@ -1,0 +1,55 @@
+class Solution {
+    public List<String> restoreIpAddresses(String s) {
+        List<String> result = new ArrayList<>();
+        if(s.length() > 12 || s.length() < 4)
+            return result;
+
+
+        for(int i = 0; i < s.length(); i++){
+            if(s.charAt(i) < '0' || s.charAt(i) > '9')
+                return result;
+        }
+        StringBuilder current = new StringBuilder();
+        backTrack(current, 0, 1, result, s);
+        return result;
+    }
+    public void backTrack(StringBuilder current, int idx, int col, List<String> result, String s){
+        
+        if(col == 5 && current.length() - 4 == s.length()){
+            result.add(current.toString().substring(0,current.length() - 1));
+            return;
+        }
+        if(col > 4 || idx >= s.length())
+            return;
+       
+       
+        int count = 0;
+        StringBuilder temp = new StringBuilder();
+        for(int i = idx; i < s.length(); i++ ){
+            temp.append(s.charAt(i));      
+            if(Integer.parseInt(temp.toString()) > 255||(temp.length() > 1 && temp.charAt(0) == '0')){
+                break;
+            }
+            count++;
+            current.append(s.charAt(i));
+            current.append('.');
+       
+            backTrack(current, i + 1, col + 1, result, s); 
+            current.deleteCharAt(current.length() - 1);
+        }
+          
+       
+        for(int i = 0; i < count; i++ ){
+            current.deleteCharAt(current.length() - 1);
+        }
+
+    }
+
+
+}
+
+// There can be exactly four integer dot separated
+// An integer can't be greater than 255'
+// An integer can't have leading zeroes
+// It can only contain digits
+// The number of digits can't be more than 12'
