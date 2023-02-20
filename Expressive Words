@@ -1,0 +1,56 @@
+class Solution {
+    public int expressiveWords(String s, String[] words) {
+        int result = 0;
+        ArrayList<Character> charList = new ArrayList<>();
+        ArrayList<Integer> charCount = new ArrayList<>();
+        int cnt = 0, freq = 0;
+        char prev = s.charAt(0);
+       for(int i = 0; i < s.length(); i++){
+            if(prev == s.charAt(i))
+                freq++;
+            else{
+                charList.add(prev);
+                charCount.add(freq);
+                freq = 1;
+                prev = s.charAt(i);
+            }
+
+        }
+        
+        charList.add(prev);
+        charCount.add(freq);
+        for(String word : words){
+            ArrayList<Character> wList = new ArrayList<>();
+            ArrayList<Integer> wCount = new ArrayList<>();
+            int wCnt = 0, wFreq = 0;
+            char wPrev = word.charAt(0);
+            for(int i = 0; i < word.length(); i++){
+                if(wPrev == word.charAt(i))
+                    wFreq++;
+                else{
+                    wList.add(wPrev);
+                    wCount.add(wFreq);
+                    wFreq = 1;
+                    wPrev = word.charAt(i);
+                }
+
+            }
+            wList.add(wPrev);
+            wCount.add(wFreq);
+            if(wList.size() != charList.size())
+                continue;
+            boolean stretch = true;
+
+            for(int i = 0; i < wList.size(); i++){
+                int diff = charCount.get(i) - wCount.get(i);
+                if(wList.get(i) != charList.get(i) || (diff != 0 && charCount.get(i) < 3) || diff < 0){
+                    stretch = false;
+                    break;
+                }
+            }
+            if(stretch)
+                result++;
+        }
+        return result;
+    }
+}
