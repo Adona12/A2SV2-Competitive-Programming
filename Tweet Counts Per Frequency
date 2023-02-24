@@ -1,0 +1,48 @@
+class TweetCounts {
+    HashMap<String,TreeMap<Integer,Integer>> map;
+    public TweetCounts() {
+        map = new HashMap<>();
+        
+    }
+    
+    public void recordTweet(String tweetName, int time) {
+        TreeMap<Integer,Integer> timeMap = map.getOrDefault(tweetName,new TreeMap<>());
+        timeMap.put(time,timeMap.getOrDefault(time,0) + 1);
+        map.put(tweetName,timeMap);
+    }
+    
+    public List<Integer> getTweetCountsPerFrequency(String freq, String tweetName, int startTime, int endTime) {
+        if(!map.containsKey(tweetName))
+            return new ArrayList<>();
+        TreeMap<Integer,Integer> times = map.get(tweetName);
+        
+        int chunk = freq.equals("day")?86400:freq.equals("hour")?3600:60;
+        int[] count = new int[(((endTime - startTime)/chunk) + 1)];
+        for(Map.Entry<Integer,Integer> entry : times.entrySet()){
+            if(entry.getKey() > endTime)
+                break;
+            if(entry.getKey() >= startTime)
+                count[(entry.getKey() - startTime)/chunk]+=entry.getValue();
+        }
+        List<Integer> result = new ArrayList<>();
+        for(int num : count){
+           
+                result.add(num);
+        }
+        return result;
+
+
+        
+    }
+}
+
+/**
+ * Your TweetCounts object will be instantiated and called as such:
+ * TweetCounts obj = new TweetCounts();
+ * obj.recordTweet(tweetName,time);
+ * List<Integer> param_2 = obj.getTweetCountsPerFrequency(freq,tweetName,startTime,endTime);
+ */
+
+
+
+
